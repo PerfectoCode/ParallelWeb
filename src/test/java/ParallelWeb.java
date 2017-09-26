@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class ParallelWeb {
     private RemoteWebDriver driver;
     private ReportiumClient reportiumClient;
+    private String url = "http://way2automation.com/way2auto_jquery/index.php";
 
     // Create Remote WebDriver based on testng.xml configuration
     @Parameters({ "platformName", "platformVersion", "browserName", "browserVersion", "screenResolution", "location" })
@@ -45,7 +46,7 @@ public class ParallelWeb {
         try{
             reportiumClient.testStart("Way2Automation Flow", new TestContext("Sample", "Native"));
             stepStart("Navigate to site");
-            driver.get("http://way2automation.com/way2auto_jquery/index.php");
+            driver.get(url);
             delay();
             stepEnd();
 
