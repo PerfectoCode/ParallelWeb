@@ -60,23 +60,23 @@ public class ParallelWeb {
             stepEnd();
 
             stepStart("Going to registration");
-            driver.findElementByXPath("//h2[text()=\"Registration\"]").click();
+            driver.findElementByXPath("//h2[text()='Registration']").click();
             delay();
             driver.findElement(By.id("register_form")).isDisplayed();
             stepEnd();
 
             stepStart("Test Registration");
-            driver.findElementByXPath("//*[@name=\"name\"]").sendKeys("first name");
-            driver.findElementByXPath("//*[@id=\"register_form\"]/fieldset[1]/p[2]/input").sendKeys("last name");
-            driver.findElementByXPath("//*[text()=\" Single\"]//*[@name=\"m_status\"]").click();
-            driver.findElementByXPath("//*[@class=\"relative\"]//*[@name=\"hobby\"]").click();
-            driver.findElementByXPath("//*[text()=\" Reading\"]//*[@name=\"hobby\"]").click();
-            driver.findElementByXPath("//*[@name=\"phone\"]").sendKeys("1234567890"); //Phone Number
-            driver.findElementByXPath("//*[@name=\"username\"]").sendKeys("username");
-            driver.findElementByXPath("//*[@name=\"email\"]").sendKeys("Email@gmail.com");
-            driver.findElementByXPath("//*[@name=\"password\"]").sendKeys("Password");
-            driver.findElementByXPath("//*[@name=\"c_password\"]").sendKeys("Password");
-            driver.findElementByXPath("//*[@value=\"submit\"]").click(); //Click Submit
+            driver.findElementByXPath("//*[@name='name']").sendKeys("first name");
+            driver.findElementByXPath("//*[@id='register_form']/fieldset[1]/p[2]/input").sendKeys("last name");
+            driver.findElementByXPath("//*[text()=' Single']//*[@name='m_status']").click();
+            driver.findElementByXPath("//*[@class='relative']//*[@name='hobby']").click();
+            driver.findElementByXPath("//*[text()=' Reading']//*[@name='hobby']").click();
+            driver.findElementByXPath("//*[@name='phone']").sendKeys("1234567890"); //Phone Number
+            driver.findElementByXPath("//*[@name='username']").sendKeys("username");
+            driver.findElementByXPath("//*[@name='email']").sendKeys("Email@gmail.com");
+            driver.findElementByXPath("//*[@name='password']").sendKeys("Password");
+            driver.findElementByXPath("//*[@name='c_password']").sendKeys("Password");
+            driver.findElementByXPath("//*[@value='submit']").click(); //Click Submit
             delay();
             stepEnd();
 
