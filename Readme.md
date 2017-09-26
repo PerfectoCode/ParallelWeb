@@ -33,19 +33,6 @@ String PERFECTO_TOKEN = System.getenv("token");
 
 - More capabilities are available, read more [here](http://developers.perfectomobile.com/display/PD/Supported+Platforms).
 
-### Perfecto Turbo Web Automation:
-
-Perfecto's Desktop Web environment introduces an accelerated interface to Web Browser automation with its new Turbo web interface. Using this new environment will allow you to connect quicker to the browser "device" you select for automating and testing your web application.
-
-- To enable Turbo Web Automation in this code sample follow the instructions in the link above in order to generate authentication token.
-Place the authentication in one of the Turbo Web test's files:
-```Python
-token = os.environ['token']
-host = os.environ['host']
-...
-self.driver = webdriver.Remote('https://' + self.host + '/nexperience/perfectomobile/wd/hub/fast', capabilities)
-```
-
 ### Perfecto DigitalZoom reporting:
 
 Perfecto Reporting is a multiple execution digital report, that enables quick navigation within your latest build execution. Get visibility of your test execution status and quickly identify potential problems with an aggregated report.
