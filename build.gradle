@@ -1,0 +1,64 @@
+group 'com.perfectomobile'
+version '1.0'
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repository-perfectomobile.forge.cloudbees.com/public'
+    }
+}
+
+dependencies {
+    compile 'com.perfectomobile:http-client:10.7.0.4'
+    compile 'com.perfectomobile:pm-webdriver:10.7.0.4'
+    compile 'com.perfectomobile:intellij-connector:10.7.0.0'
+    compile group: 'junit', name: 'junit', version: '4.11'
+    compile ('com.perfecto.reporting-sdk:reportium-java:1.1.17') {
+        exclude group: "org.seleniumhq.selenium", module: "selenium-remote-driver"
+        exclude group: "org.seleniumhq.selenium", module: "selenium-java"
+        exclude group: "org.seleniumhq.selenium", module: "selenium-api"
+    }
+
+    compile 'commons-codec:commons-codec:1.10'
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'dom4j:dom4j:1.6.1'
+    compile 'com.google.code.gson:gson:2.5'
+    compile 'com.google.guava:guava:19.0'
+    compile 'org.apache.httpcomponents:httpclient:4.5.1'
+    compile 'org.apache.httpcomponents:httpcore:4.4.4'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.0'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
+    compile 'io.appium:java-client:3.4.1'
+    compile 'jaxen:jaxen:1.1.6'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.16'
+    compile 'org.json:json:20151123'
+    compile 'ch.qos.logback:logback-classic:1.1.5'
+    compile 'ch.qos.logback:logback-core:1.1.5'
+    compile 'org.seleniumhq.selenium:selenium-api:2.53.0'
+    compile 'org.seleniumhq.selenium:selenium-remote-driver:2.53.0'
+    compile 'org.seleniumhq.selenium:selenium-support:2.53.0'
+    compile 'org.slf4j:slf4j-api:1.7.16'
+    compile group: 'org.testng', name: 'testng', version: '6.9.10'
+    compile("org.uncommons:reportng:1.1.4") {
+        exclude group: 'org.testng', module: 'testng'
+    }
+}
+tasks.withType(Test) {
+    //forwarding system variables
+    systemProperties = System.getProperties()
+
+    useTestNG {
+        testLogging.showStandardStreams = true
+    }
+}
+
+task sampleScript(type:Test){
+    useTestNG {
+        suites '/src/test/resources/testng.xml'
+    }
+}
+
