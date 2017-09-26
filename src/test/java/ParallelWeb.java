@@ -50,7 +50,7 @@ public class ParallelWeb {
             stepEnd();
 
             stepStart("Opening signin window");
-            driver.findElementByXPath("(//*[@id=\"load_form\"]/div/div[1]/p/a)[2]").click(); //Can use clickText(visual analysis) instead once its implemented for fast web
+            driver.findElementByXPath(ObjectRepository.signin).click(); //Can use clickText(visual analysis) instead once its implemented for fast web
             delay();
             stepEnd();
 
@@ -60,23 +60,23 @@ public class ParallelWeb {
             stepEnd();
 
             stepStart("Going to registration");
-            driver.findElementByXPath("//h2[text()='Registration']").click();
+            driver.findElementByXPath(ObjectRepository.registration).click();
             delay();
-            driver.findElement(By.id("register_form")).isDisplayed();
+            driver.findElement(By.id(ObjectRepository.registrationForm)).isDisplayed();
             stepEnd();
 
             stepStart("Test Registration");
-            driver.findElementByXPath("//*[@name='name']").sendKeys("first name");
-            driver.findElementByXPath("//*[@id='register_form']/fieldset[1]/p[2]/input").sendKeys("last name");
-            driver.findElementByXPath("//*[text()=' Single']//*[@name='m_status']").click();
-            driver.findElementByXPath("//*[@class='relative']//*[@name='hobby']").click();
-            driver.findElementByXPath("//*[text()=' Reading']//*[@name='hobby']").click();
-            driver.findElementByXPath("//*[@name='phone']").sendKeys("1234567890"); //Phone Number
-            driver.findElementByXPath("//*[@name='username']").sendKeys("username");
-            driver.findElementByXPath("//*[@name='email']").sendKeys("Email@gmail.com");
-            driver.findElementByXPath("//*[@name='password']").sendKeys("Password");
-            driver.findElementByXPath("//*[@name='c_password']").sendKeys("Password");
-            driver.findElementByXPath("//*[@value='submit']").click(); //Click Submit
+            driver.findElementByXPath(ObjectRepository.registerFirstName).sendKeys("first name");
+            driver.findElementByXPath(ObjectRepository.registerLastName).sendKeys("last name");
+            driver.findElementByXPath(ObjectRepository.registerSingle).click();
+            driver.findElementByXPath(ObjectRepository.registerHobbyDancing).click();
+            driver.findElementByXPath(ObjectRepository.registerHobbyReading).click();
+            driver.findElementByXPath(ObjectRepository.registerPhone).sendKeys("1234567890"); //Phone Number
+            driver.findElementByXPath(ObjectRepository.registerUsername).sendKeys("username");
+            driver.findElementByXPath(ObjectRepository.registerEmail).sendKeys("Email@gmail.com");
+            driver.findElementByXPath(ObjectRepository.registerPassword1).sendKeys("Password");
+            driver.findElementByXPath(ObjectRepository.registerPassword2).sendKeys("Password");
+            driver.findElementByXPath(ObjectRepository.registerSubmit).click(); //Click Submit
             delay();
             stepEnd();
 
@@ -99,10 +99,9 @@ public class ParallelWeb {
     }
 
     public void login(String username, String password) throws InterruptedException {
-
-        driver.findElementByXPath("(//*[@name='username'])[2]").sendKeys(username);
-        driver.findElementByXPath("(//*[@name='password'])[2]").sendKeys(password);
-        driver.findElementByXPath("(//*[@name='password'])[2]").submit();
+        driver.findElementByXPath(ObjectRepository.loginUser).sendKeys(username);
+        driver.findElementByXPath(ObjectRepository.loginPassword).sendKeys(password);
+        driver.findElementByXPath(ObjectRepository.loginPassword).submit();
         delay();
         //driver.findElementByXPath("//*[@class=\"ajaxlogin\"]//*[@class=\"button\"]").click(); //Can use clickText(visual analysis) instead once its implemented for fast web
     }
