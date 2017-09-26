@@ -1,0 +1,5 @@
+<configuration>
+    <logger name="ch.qos.logback.classic" level="OFF" /> <!-- Ironic isn't it? -->
+    <logger name="org.apache" level="ERROR" />
+    <logger name="httpclient" level="ERROR" />
+</configuration>
