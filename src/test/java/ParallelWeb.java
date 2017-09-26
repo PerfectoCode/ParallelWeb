@@ -6,6 +6,7 @@ import com.perfecto.reportium.model.PerfectoExecutionContext;
 import com.perfecto.reportium.model.Project;
 import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResultFactory;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
@@ -27,13 +28,14 @@ public class ParallelWeb {
 
 
         driver = Utils.getRemoteWebDriver(platformName, platformVersion, browserName, browserVersion, screenResolution, location);
-        // Reporting client. For more details, see http://developers.perfectomobile.com/display/PD/Reporting
         PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
                 .withProject(new Project("Sample Script", "1.0"))
                 .withJob(new Job("Sample Job", 45))
                 .withContextTags("Java")
                 .withWebDriver(driver)
                 .build();
+
+        // Reporting client. For more details, see http://developers.perfectomobile.com/display/PD/Reporting
         reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(perfectoExecutionContext);
     }
 
@@ -48,11 +50,7 @@ public class ParallelWeb {
             stepEnd();
 
             stepStart("Opening signin window");
-            //try{
-            //    clickText("Signin", 60);
-            //} catch (Exception ex){
-                driver.findElementByXPath("(//*[@id=\"load_form\"]/div/div[1]/p/a)[2]").click();
-            //}
+            driver.findElementByXPath("(//*[@id=\"load_form\"]/div/div[1]/p/a)[2]").click(); //Can use clickText(visual analysis) instead once its implemented for fast web
             delay();
             stepEnd();
 
@@ -61,7 +59,6 @@ public class ParallelWeb {
             delay();
             stepEnd();
 
-            ///
             stepStart("Going to registration");
             driver.findElementByXPath("//h2[text()=\"Registration\"]").click();
             delay();
@@ -89,7 +86,6 @@ public class ParallelWeb {
             reportiumClient.testStop(TestResultFactory.createFailure(e.getMessage(), e));
             e.printStackTrace();
         }
-
     }
 
     public void delay() throws InterruptedException { TimeUnit.SECONDS.sleep(5);}
@@ -104,15 +100,11 @@ public class ParallelWeb {
 
     public void login(String username, String password) throws InterruptedException {
 
-        driver.findElementByXPath("(//*[@name='password'])[2]").sendKeys(password);
         driver.findElementByXPath("(//*[@name='username'])[2]").sendKeys(username);
-
+        driver.findElementByXPath("(//*[@name='password'])[2]").sendKeys(password);
+        driver.findElementByXPath("(//*[@name='password'])[2]").submit();
         delay();
-        //try{
-        //    clickText("SUBMIT", 60);
-        //} catch (Exception ex){
-            driver.findElementByXPath("//*[@class=\"ajaxlogin\"]//*[@class=\"button\"]").click();
-        //}
+        //driver.findElementByXPath("//*[@class=\"ajaxlogin\"]//*[@class=\"button\"]").click(); //Can use clickText(visual analysis) instead once its implemented for fast web
     }
 
     @AfterTest

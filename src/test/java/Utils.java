@@ -9,7 +9,6 @@ public class Utils {
 
     public static RemoteWebDriver getRemoteWebDriver(String platformName, String platformVersion, String browserName,
                                                      String browserVersion, String screenResolution, String location) throws MalformedURLException {
-
         // Set cloud host and credentials values from CI, else use local values
         String PERFECTO_HOST = System.getenv("host");
         String PERFECTO_TOKEN = System.getenv("token");
