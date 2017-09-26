@@ -39,28 +39,6 @@ public class ParallelWeb {
         reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(perfectoExecutionContext);
     }
 
-    // Test Method, navigate to google and perform search
-    @Test
-    public void searchGoogle() throws MalformedURLException {
-
-        driver.get("http://www.google.com");
-        try {
-            final String searchKey = "Perfecto Mobile";
-            WebElement element = driver.findElement(By.name("q"));
-            element.sendKeys(searchKey);
-            element.submit();
-            (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-                public Boolean apply(WebDriver d) {
-                    return d.getTitle().toLowerCase().startsWith(searchKey.toLowerCase());
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Done: searchGoogle");
-    }
-
     // Test Method - Navigate to way2automation.com and fill the registration form
     @Test
     public void way2automation(){
@@ -73,11 +51,11 @@ public class ParallelWeb {
             reportiumClient.stepEnd();
 
             reportiumClient.stepStart("Opening signin window");
-            try{
-                clickText("Signin", 60);
-            } catch (Exception ex){
+            //try{
+            //    clickText("Signin", 60);
+            //} catch (Exception ex){
                 driver.findElementByXPath("(//*[@id=\"load_form\"]/div/div[1]/p/a)[2]").click();
-            }
+            //}
             delay();
             reportiumClient.stepEnd();
 
@@ -90,6 +68,7 @@ public class ParallelWeb {
             reportiumClient.stepStart("Going to registration");
             driver.findElementByXPath("//*[@id=\"wrapper\"]/div[2]/div[2]/div[5]/ul/li/a/h2").click();
             delay();
+            driver.findElement(By.id("register_form")).isDisplayed();
             reportiumClient.stepEnd();
 
             reportiumClient.stepStart("Test Registration");
@@ -140,66 +119,16 @@ public class ParallelWeb {
         driver.findElementByXPath("(//*[@name='username'])[2]").sendKeys(username);
         driver.findElementByXPath("(//*[@name='password'])[2]").sendKeys(password);
         delay();
-        try{
-            clickText("SUBMIT", 60);
-        } catch (Exception ex){
+        //try{
+        //    clickText("SUBMIT", 60);
+        //} catch (Exception ex){
             driver.findElementByXPath("(//*[@id=\"load_form\"]/div/div[2]/input)[2]").click();
-        }
+        //}
     }
-
-    // Test Method, navigate to Geico and get insurance quote
-	/*@Test
-	public void geicoInsurance() throws MalformedURLException {
-
-		driver.get("http://www.geico.com");
-
-		try {
-			Select type = new Select(driver.findElement(By.id("insurancetype")));
-			type.selectByVisibleText("Motorcycle");
-		//In case geico site appear in mobile version
-		}catch(Exception ex){
-			driver.findElement(By.xpath("//*[@id= 'motorcycle']")).click();;
-		}
-
-		try{
-
-			driver.findElement(By.id("zip")).sendKeys("01434");
-			driver.findElement(By.id("submitButton")).click();
-
-			//Do you currently have GEICO auto insurance?
-			driver.findElement(By.xpath("//*[@class = 'radio'][2]")).click(); // Choose no radio button
-
-			driver.findElement(By.id("firstName")).sendKeys("MyFirstName");
-			driver.findElement(By.id("lastName")).sendKeys("MyFamilyName");
-			driver.findElement(By.id("street")).sendKeys("My Address");
-
-			driver.findElement(By.id("date-monthdob")).sendKeys("8");
-			driver.findElement(By.id("date-daydob")).sendKeys("3");
-			driver.findElement(By.id("date-yeardob")).sendKeys("1981");
-
-			driver.findElement(By.xpath("//*[@class='radio'][2]")).click();
-			driver.findElement(By.id("btnSubmit")).click();
-
-			driver.findElement(By.id("hasCycle-error")).isDisplayed();
-
-			Select hasCycle = new Select(driver.findElement(By.id("hasCycle")));
-			hasCycle.selectByIndex(1);
-
-			Select current = new Select(driver.findElement(By.id("currentInsurance")));
-			current.selectByVisibleText("Other");
-			driver.findElement(By.id("btnSubmit")).click();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("Done: geicoInsurance");
-	}*/
 
     @AfterTest
     public void afterTest() throws IOException {
         driver.close();
         driver.quit();
     }
-
 }

@@ -37,6 +37,7 @@ public class Utils {
             capabilities.setCapability("resolution", screenResolution);
             System.out.println("Creating Remote WebDriver on: " + platformName + " " + platformVersion + ", " + browserName + " " + browserVersion + ", " + screenResolution);
         }
+
         else {
             if (!platformName.isEmpty())
                 System.out.println("Creating Remote WebDriver on: " + platformName + " " + platformVersion);
@@ -45,11 +46,12 @@ public class Utils {
         }
 
         RemoteWebDriver webdriver = new RemoteWebDriver(
-                new URL("https://" + PERFECTO_HOST + "/nexperience/perfectomobile/wd/hub"), capabilities);
+                new URL("https://" + PERFECTO_HOST + "/nexperience/perfectomobile/wd/hub/fast"), capabilities);
 
         // Define RemoteWebDriver timeouts
         webdriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         webdriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        webdriver.manage().window().maximize();
 
         // Maximize browser window on Desktop
         if (!screenResolution.isEmpty()) {
