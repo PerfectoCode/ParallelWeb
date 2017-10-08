@@ -68,17 +68,18 @@
         </classes>
     </test>
 
-    <test name="Windows 10 Edge">
+    <!--test name="Windows 10 Edge">
         <parameter name="platformName" value="Windows" />
         <parameter name="platformVersion" value="10" />
-        <parameter name="browserName" value="Microsoft Edge" />
-        <parameter name="browserVersion" value="14" />
+        <parameter name="browserName" value="Edge" />
+        <parameter name="browserVersion" value="15" />
         <parameter name="screenResolution" value="1280x1024" />
         <parameter name="location" value="NA-US-BOS" />
         <classes>
             <class name="ParallelWeb" />
         </classes>
     </test>
+    <-->
 
     <test name="Mac">
         <parameter name="platformName" value="Mac" />

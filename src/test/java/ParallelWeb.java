@@ -8,6 +8,7 @@ import com.perfecto.reportium.test.TestContext;
 import com.perfecto.reportium.test.result.TestResultFactory;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
@@ -61,9 +62,17 @@ public class ParallelWeb {
             stepEnd();
 
             stepStart("Going to registration");
-            driver.findElementByXPath(ObjectRepository.registration).click();
+            WebElement registration = driver.findElementByXPath(ObjectRepository.registration);
+            driver.executeScript(String.format("window.scrollTo(0, %d)", registration.getLocation().y));
+            registration.click();
             delay();
-            driver.findElement(By.id(ObjectRepository.registrationForm)).isDisplayed();
+            if (driver.findElement(By.id(ObjectRepository.registrationForm)).isDisplayed()){
+                reportiumClient.reportiumAssert("Registration Form Visible", true);
+            }
+            else {
+                reportiumClient.reportiumAssert("Registration Form NOT Visible", false);
+            }
+
             stepEnd();
 
             stepStart("Test Registration");
@@ -77,7 +86,10 @@ public class ParallelWeb {
             driver.findElementByXPath(ObjectRepository.registerEmail).sendKeys("Email@gmail.com");
             driver.findElementByXPath(ObjectRepository.registerPassword1).sendKeys("Password");
             driver.findElementByXPath(ObjectRepository.registerPassword2).sendKeys("Password");
-            driver.findElementByXPath(ObjectRepository.registerSubmit).click(); //Click Submit
+
+            WebElement submit = driver.findElementByXPath(ObjectRepository.registerSubmit);
+            driver.executeScript(String.format("window.scrollTo(0, %d)", submit.getLocation().y));
+            submit.click(); //Click Submit
             delay();
             stepEnd();
 
@@ -89,7 +101,7 @@ public class ParallelWeb {
         }
     }
 
-    public void delay() throws InterruptedException { TimeUnit.SECONDS.sleep(5);}
+    public void delay() throws InterruptedException { TimeUnit.SECONDS.sleep(7);}
 
     public void clickText(String text, int threshold){
         Map<String, Object> params = new HashMap<>();
@@ -100,9 +112,34 @@ public class ParallelWeb {
     }
 
     public void login(String username, String password) throws InterruptedException {
-        driver.findElementByXPath(ObjectRepository.loginUser).sendKeys(username);
-        driver.findElementByXPath(ObjectRepository.loginPassword).sendKeys(password);
-        driver.findElementByXPath(ObjectRepository.loginPassword).submit();
+        WebElement userInput = driver.findElementByXPath(ObjectRepository.loginUser);
+        userInput.sendKeys(username);
+        if (userInput.getAttribute("value").equalsIgnoreCase(username)){
+            reportiumClient.reportiumAssert("Username inserted successfully", true);
+        }
+        else {
+            reportiumClient.reportiumAssert("Failed to insert username", false);
+        }
+
+        WebElement passwordInput = driver.findElementByXPath(ObjectRepository.loginPassword);
+        passwordInput.sendKeys(password);
+
+        if (passwordInput.getAttribute("value").equals(password)){
+            reportiumClient.reportiumAssert("Password inserted successfully", true);
+        }
+        else {
+            reportiumClient.reportiumAssert("Failed to insert password", false);
+        }
+
+        passwordInput.submit();
+        try{
+            driver.findElementByXPath(ObjectRepository.loginPopup);
+            if (driver.findElementByXPath(ObjectRepository.loginPopup).isDisplayed())
+                reportiumClient.reportiumAssert("Failed to Sign in", false);
+        } catch (Exception ex){
+            reportiumClient.reportiumAssert("Signed in succesfully", true);
+        }
+
         delay();
         //driver.findElementByXPath("//*[@class=\"ajaxlogin\"]//*[@class=\"button\"]").click(); //Can use clickText(visual analysis) instead once its implemented for fast web
     }

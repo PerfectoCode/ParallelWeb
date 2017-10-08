@@ -3,6 +3,7 @@ public class ObjectRepository {
     public static String signin = "//*[contains(text(),'Signin')]";
     public static String loginUser = "(//*[@name='username'])[2]";
     public static String loginPassword = "(//*[@name='password'])[2]";
+    public static String loginPopup = "//*[@id=\"login\"]";
     public static String registration = "//h2[text()='Registration']";
     public static String registrationForm = "register_form";
     public static String registerFirstName = "//*[@name='name']";
