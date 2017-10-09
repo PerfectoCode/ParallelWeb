@@ -31,7 +31,7 @@ String PERFECTO_TOKEN = System.getenv("token");
      </test>
 ```
 
-- More capabilities are available, read more [here](http://developers.perfectomobile.com/display/PD/Supported+Platforms).
+- More capabilities are available, read more [here](http://developers.perfectomobile.com/display/PD/Desktop+Web+Devices).
 
 ### Perfecto DigitalZoom reporting:
 
