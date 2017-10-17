@@ -20,18 +20,18 @@ String PERFECTO_TOKEN = System.getenv("token");
 - To ensure your tests run on Perfecto Web machines on the cloud use the capabilities as in testng.xml i.e: <br/>
 ```Xml
  <test name="Windows 10 Chrome latest">
-         <parameter name="platformName" value="Windows" />
-         <parameter name="platformVersion" value="10" />
-         <parameter name="browserName" value="Chrome" />
-         <parameter name="browserVersion" value="latest" />
-         <parameter name="screenResolution" value="" />
-         <classes>
-             <class name="ParallelWeb" />
-         </classes>
-     </test>
+     <parameter name="platformName" value="Windows" />
+     <parameter name="platformVersion" value="10" />
+     <parameter name="browserName" value="Chrome" />
+     <parameter name="browserVersion" value="latest" />
+     <parameter name="screenResolution" value="" />
+     <classes>
+         <class name="ParallelWeb" />
+     </classes>
+ </test>
 ```
 
-- More capabilities are available, read more [here](http://developers.perfectomobile.com/display/PD/Supported+Platforms).
+- More capabilities are available, read more [here](http://developers.perfectomobile.com/display/PD/Desktop+Web+Devices).
 
 ### Perfecto DigitalZoom reporting:
 
