@@ -81,6 +81,7 @@
     </test>
     <-->
 
+    <!--
     <test name="Mac">
         <parameter name="platformName" value="Mac" />
         <parameter name="platformVersion" value="macOS Sierra" />
@@ -92,5 +93,6 @@
             <class name="ParallelWeb" />
         </classes>
     </test>
+    <-->
 
 </suite>
