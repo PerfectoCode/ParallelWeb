@@ -28,17 +28,21 @@ public class ParallelWeb {
     @BeforeTest
     public void beforeTest(String platformName, String platformVersion, String browserName, String browserVersion, String screenResolution, @Optional String location) throws MalformedURLException {
 
+        try{
+            driver = Utils.getRemoteWebDriver(platformName, platformVersion, browserName, browserVersion, screenResolution, location);
+            PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
+                    .withProject(new Project("Sample Script", "1.0"))
+                    .withJob(new Job("Sample Job", 45))
+                    .withContextTags("Java")
+                    .withWebDriver(driver)
+                    .build();
 
-        driver = Utils.getRemoteWebDriver(platformName, platformVersion, browserName, browserVersion, screenResolution, location);
-        PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
-                .withProject(new Project("Sample Script", "1.0"))
-                .withJob(new Job("Sample Job", 45))
-                .withContextTags("Java")
-                .withWebDriver(driver)
-                .build();
-
-        // Reporting client. For more details, see http://developers.perfectomobile.com/display/PD/Reporting
-        reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(perfectoExecutionContext);
+            // Reporting client. For more details, see http://developers.perfectomobile.com/display/PD/Reporting
+            reportiumClient = new ReportiumClientFactory().createPerfectoReportiumClient(perfectoExecutionContext);
+        }
+        catch(Exception ex){
+            System.out.println("ERROR: " + ex.toString() + " trying os/browser" + platformName + platformVersion + "(" + browserName + browserVersion +")");
+        }
     }
 
     // Test Method - Navigate to way2automation.com and fill the registration form
@@ -132,6 +136,8 @@ public class ParallelWeb {
         }
 
         passwordInput.submit();
+        Thread.sleep(5000);
+
         try{
             driver.findElementByXPath(ObjectRepository.loginPopup);
             if (driver.findElementByXPath(ObjectRepository.loginPopup).isDisplayed())
@@ -148,6 +154,10 @@ public class ParallelWeb {
     public void afterTest() throws IOException {
         try {
             System.out.println("Report URL: " + reportiumClient.getReportUrl());
+            /*************************/
+            String reportPdfUrl = (String)(driver.getCapabilities().getCapability("reportPdfUrl"));
+            System.out.println(reportPdfUrl);
+            /*************************/
         } catch (Exception e) {
             e.printStackTrace();
         }finally {

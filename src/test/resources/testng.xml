@@ -28,7 +28,7 @@
 		<parameter name="platformName" value="Windows" />
 		<parameter name="platformVersion" value="8.1" />
 		<parameter name="browserName" value="Internet Explorer" />
-		<parameter name="browserVersion" value="11" />
+		<parameter name="browserVersion" value="latest" />
 		<parameter name="screenResolution" value="" />
 		<classes>
 			<class name="ParallelWeb" />
@@ -61,25 +61,23 @@
         <parameter name="platformName" value="Windows" />
         <parameter name="platformVersion" value="10" />
         <parameter name="browserName" value="Internet Explorer" />
-        <parameter name="browserVersion" value="11" />
+        <parameter name="browserVersion" value="latest" />
         <parameter name="screenResolution" value="" />
         <classes>
             <class name="ParallelWeb" />
         </classes>
     </test>
 
-    <!--test name="Windows 10 Edge">
+    <test name="Windows 10 Edge">
         <parameter name="platformName" value="Windows" />
         <parameter name="platformVersion" value="10" />
         <parameter name="browserName" value="Edge" />
-        <parameter name="browserVersion" value="15" />
+        <parameter name="browserVersion" value="latest" />
         <parameter name="screenResolution" value="1280x1024" />
-        <parameter name="location" value="NA-US-BOS" />
         <classes>
             <class name="ParallelWeb" />
         </classes>
     </test>
-    <-->
 
     <!--
     <test name="Mac">

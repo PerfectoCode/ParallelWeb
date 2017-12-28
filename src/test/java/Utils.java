@@ -51,7 +51,7 @@ public class Utils {
 
         // Define RemoteWebDriver timeouts
         webdriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        webdriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        //webdriver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         webdriver.manage().window().maximize();
 
         // Maximize browser window on Desktop
