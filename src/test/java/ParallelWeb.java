@@ -128,7 +128,7 @@ public class ParallelWeb {
         WebElement passwordInput = driver.findElementByXPath(ObjectRepository.loginPassword);
         passwordInput.sendKeys(password);
 
-        if (passwordInput.getAttribute("value").equals(password)){
+        if (password.equals(passwordInput.getAttribute("value"))){
             reportiumClient.reportiumAssert("Password inserted successfully", true);
         }
         else {
@@ -152,18 +152,25 @@ public class ParallelWeb {
 
     @AfterTest
     public void afterTest() throws IOException {
+
+        String executionId = (String) driver.getCapabilities().getCapability("executionId");
+
         try {
-            System.out.println("Report URL: " + reportiumClient.getReportUrl());
-            /*************************/
             String reportPdfUrl = (String)(driver.getCapabilities().getCapability("reportPdfUrl"));
-            System.out.println(reportPdfUrl);
-            /*************************/
+            System.out.println("Report URL: " + reportPdfUrl);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             System.out.println("Way2automation flow ended");
             driver.close();
             driver.quit();
+        }
+
+        try {
+            Utils.downloadReport("summary", executionId);
+            Utils.downloadReport("test", executionId);
+        } catch(Exception e){
+            e.printStackTrace();
         }
     }
 
