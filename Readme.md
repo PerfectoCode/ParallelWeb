@@ -38,4 +38,13 @@ String PERFECTO_TOKEN = System.getenv("token");
 Perfecto Reporting is a multiple execution digital report, that enables quick navigation within your latest build execution. Get visibility of your test execution status and quickly identify potential problems with an aggregated report.
 Hone-in and quickly explore your test results all within customized views, that include logical steps and synced artifacts. Distinguish between test methods within a long execution. Add personalized logical steps and tags according to your team and organization.
 
+Report Exporting
+```Java
+            Utils.downloadSummary(executionId);     //Download Execution Summary
+            Utils.downloadTestReport(executionId);  //Download Test Report
+```
+- You can find the full implementation of this functions in the Utils, Modifications might be needed to suite your needs.
+- More information can be found [here](http://developers.perfectomobile.com/display/PD/Exporting+the+Reports), For more reporting samples visit our [Reporting-Samples Repository](https://github.com/PerfectoCode/Reporting-Samples).
+
+
 *Click [here](http://developers.perfectomobile.com/display/PD/Reporting) to read more about DigitalZoom Reporting.*

@@ -93,12 +93,13 @@ public class ParallelWeb {
 
             WebElement submit = driver.findElementByXPath(ObjectRepository.registerSubmit);
             driver.executeScript(String.format("window.scrollTo(0, %d)", submit.getLocation().y));
-            submit.click(); //Click Submit
+            submit.click();
             delay();
             stepEnd();
 
             reportiumClient.testStop(TestResultFactory.createSuccess());
-
+            reportiumClient.testStart("CHECK CHECK", new TestContext("Sample", "Native"));
+            reportiumClient.testStop(TestResultFactory.createSuccess());
         } catch (Exception e) {
             reportiumClient.testStop(TestResultFactory.createFailure(e.getMessage(), e));
             e.printStackTrace();
@@ -107,6 +108,7 @@ public class ParallelWeb {
 
     public void delay() throws InterruptedException { TimeUnit.SECONDS.sleep(7);}
 
+    //Clicks a text located by visual analysis - might not be implemented on fast web yet
     public void clickText(String text, int threshold){
         Map<String, Object> params = new HashMap<>();
         params.put("content", text);
@@ -167,11 +169,9 @@ public class ParallelWeb {
         }
 
         try {
-            Utils.downloadReport("summary", executionId);
-            Utils.downloadReport("test", executionId);
-        } catch(Exception e){
-            e.printStackTrace();
-        }
+            Utils.downloadSummary(executionId);
+            Utils.downloadTestReport(executionId);
+        } catch(Exception e) { reportiumClient.testStop(TestResultFactory.createFailure(e.getMessage(), e)); }
     }
 
     private void stepStart(String message) {

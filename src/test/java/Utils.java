@@ -91,25 +91,18 @@ public class Utils {
         return webdriver;
     }
 
-    public static void downloadReport(String type, String id) throws Exception {
+    //Downloads the execution summary report to a temp folder
+    public static void downloadSummary(String executionId) throws Exception {
+        Path downloadPath = Paths.get(Files.createTempDirectory("reporting_pdf_sample_").toString(), executionId + ".pdf");
+        downloadExecutionSummaryReport(downloadPath, executionId);
+    }
 
-        Path downloadPath = Paths.get(Files.createTempDirectory("reporting_pdf_sample_").toString(), id + ".pdf"); //Check about directory creation - maybe need to create it once for the whole project, or check if it exists before creating
-
-        switch(type){
-            case "summary":
-                downloadExecutionSummaryReport(downloadPath, id);
-                System.out.println(downloadPath.toString());
-                break;
-
-            case "test":
-                String testId = retrieveTestExecutions(id);
-                CreatePdfTask task = startTestReportGeneration(testId);
-                downloadTestReport(downloadPath, task, testId);
-                break;
-
-            default:
-                break;
-        }
+    //Downloads test execution report to a temp folder
+    public static void downloadTestReport(String executionId) throws Exception {
+        Path downloadPath = Paths.get(Files.createTempDirectory("reporting_pdf_sample_").toString(), executionId + ".pdf");
+        String testId = retrieveTestExecutions(executionId);
+        CreatePdfTask task = startTestReportGeneration(testId);
+        downloadTestReport(downloadPath, task, testId);
     }
 
     private static void downloadExecutionSummaryReport(Path summaryPdfPath, String driverExecutionId) throws URISyntaxException, IOException {
@@ -119,6 +112,7 @@ public class Utils {
         downloadPdfFileToFS(summaryPdfPath, uriBuilder.build());
     }
 
+    //Request the server to generate a test report - must be used after closing the driver and before downloading a test report
     private static CreatePdfTask startTestReportGeneration(String testId) throws URISyntaxException, IOException {
         System.out.println("Starting PDF generation for test ID: " + testId);
         URIBuilder taskUriBuilder = new URIBuilder(REPORTIUM_SERVER + "/export/api/v2/test-executions/pdf/task");
@@ -275,6 +269,7 @@ public class Utils {
         }
     }
 
+    //Returns the relevant test id for the given execution id - might be more then one test
     private static String retrieveTestExecutions(String executionId) throws URISyntaxException, IOException {
         URIBuilder uriBuilder = new URIBuilder(REPORTIUM_SERVER + "/export/api/v1/test-executions");
         uriBuilder.addParameter("externalId[0]", executionId);
