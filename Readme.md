@@ -40,11 +40,11 @@ Hone-in and quickly explore your test results all within customized views, that 
 
 Report Exporting
 ```Java
-            Utils.downloadSummary(executionId);     //Download Execution Summary
-            Utils.downloadTestReport(executionId);  //Download Test Report
+Utils.downloadSummary(executionId);     //Download Execution Summary
+Utils.downloadTestReport(executionId);  //Download Test Report
 ```
-- You can find the full implementation of this functions in the Utils, Modifications might be needed to suite your needs.
-- More information can be found [here](http://developers.perfectomobile.com/display/PD/Exporting+the+Reports), For more reporting samples visit our [Reporting-Samples Repository](https://github.com/PerfectoCode/Reporting-Samples).
+- You can find the full implementation of this functions in Utils.
+- More information regarding report exporting can be found [here](http://developers.perfectomobile.com/display/PD/Exporting+the+Reports), For more reporting samples visit our [Reporting-Samples Repository](https://github.com/PerfectoCode/Reporting-Samples).
 
 
 *Click [here](http://developers.perfectomobile.com/display/PD/Reporting) to read more about DigitalZoom Reporting.*
